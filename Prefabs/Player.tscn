@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://lx4f234137jf"]
+
+[ext_resource type="Texture2D" uid="uid://b84a3vax10doh" path="res://Art/Tanks/tankGreen_outline.png" id="1_ivgtx"]
+[ext_resource type="Script" path="res://Prefabs/Player.gd" id="1_jycpq"]
+[ext_resource type="Texture2D" uid="uid://bt7gsa58bix77" path="res://Art/Tanks/barrelGreen_outline.png" id="2_3kvof"]
+
+[sub_resource type="GDScript" id="GDScript_0hkos"]
+script/source = "extends Sprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xtrk"]
+size = Vector2(82, 78)
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_jycpq")
+metadata/_edit_group_ = true
+
+[node name="TankBase" type="Sprite2D" parent="."]
+texture = ExtResource("1_ivgtx")
+
+[node name="BarrelGun" type="Sprite2D" parent="."]
+texture = ExtResource("2_3kvof")
+offset = Vector2(0, 30)
+script = SubResource("GDScript_0hkos")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3xtrk")
