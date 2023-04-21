@@ -1,0 +1,156 @@
+[gd_scene load_steps=16 format=3 uid="uid://bxy72tkoi6ogx"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_hd0r6"]
+[ext_resource type="Texture2D" uid="uid://ca1h7ypqmf4jd" path="res://Art/Tanks/Track1.png" id="2_v3jh4"]
+[ext_resource type="Texture2D" uid="uid://bd2hclr5y7qsf" path="res://Art/Tanks/Track2.png" id="3_xvivr"]
+[ext_resource type="Texture2D" uid="uid://2gm35ew8ga4a" path="res://Art/Tanks/Track3.png" id="4_i3r10"]
+[ext_resource type="Texture2D" uid="uid://ch4fchq8xo513" path="res://Art/Tanks/Track4.png" id="5_oyx7c"]
+[ext_resource type="Texture2D" uid="uid://cgaebyrgghwf2" path="res://Art/Tanks/Track5.png" id="6_31xwa"]
+[ext_resource type="Texture2D" uid="uid://bhoa2qu2vupxl" path="res://Art/Tanks/Track6.png" id="7_2031j"]
+[ext_resource type="Texture2D" uid="uid://dxxwwsgmmg1b1" path="res://Art/Tanks/Track7.png" id="8_bmutd"]
+[ext_resource type="Texture2D" uid="uid://cmjfbq4rleymg" path="res://Art/Trails/dirtTrail.png" id="9_d3pcu"]
+[ext_resource type="Texture2D" uid="uid://dgs3x8vptevkc" path="res://Art/Tanks/green_body.png" id="10_8dijs"]
+[ext_resource type="Texture2D" uid="uid://bluouym2tktre" path="res://Art/Tanks/green_top.png" id="11_ifxkf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ic8tc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_v3jh4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xvivr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_i3r10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_oyx7c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_31xwa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2031j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bmutd")
+}],
+"loop": true,
+"name": &"drive",
+"speed": 15.0
+}]
+
+[sub_resource type="Curve" id="Curve_2tmmo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_fd2v0"]
+offsets = PackedFloat32Array(0.288136, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xtrk"]
+size = Vector2(55, 42)
+
+[node name="Tank" type="CharacterBody2D"]
+show_behind_parent = true
+script = ExtResource("1_hd0r6")
+
+[node name="TrackLeft" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_ic8tc")
+animation = &"drive"
+
+[node name="ForwardTrail" type="CPUParticles2D" parent="TrackLeft"]
+show_behind_parent = true
+position = Vector2(-10.6667, -5.33333)
+emitting = false
+amount = 15
+texture = ExtResource("9_d3pcu")
+gravity = Vector2(0, 0)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_2tmmo")
+color_ramp = SubResource("Gradient_fd2v0")
+
+[node name="ReverseTrail" type="CPUParticles2D" parent="TrackLeft"]
+show_behind_parent = true
+position = Vector2(5.33333, -5.33333)
+emitting = false
+amount = 6
+texture = ExtResource("9_d3pcu")
+gravity = Vector2(0, 0)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_2tmmo")
+color_ramp = SubResource("Gradient_fd2v0")
+
+[node name="TurnTrail" type="CPUParticles2D" parent="TrackLeft"]
+show_behind_parent = true
+position = Vector2(-3, -6.66667)
+emitting = false
+amount = 10
+texture = ExtResource("9_d3pcu")
+emission_shape = 3
+emission_rect_extents = Vector2(8, 0)
+gravity = Vector2(0, 0)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_2tmmo")
+color_ramp = SubResource("Gradient_fd2v0")
+
+[node name="TrackRight" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 33)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_ic8tc")
+animation = &"drive"
+
+[node name="ForwardTrail" type="CPUParticles2D" parent="TrackRight"]
+show_behind_parent = true
+position = Vector2(-10.6667, -5.33333)
+emitting = false
+amount = 15
+texture = ExtResource("9_d3pcu")
+gravity = Vector2(0, 0)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_2tmmo")
+color_ramp = SubResource("Gradient_fd2v0")
+
+[node name="ReverseTrail" type="CPUParticles2D" parent="TrackRight"]
+show_behind_parent = true
+position = Vector2(5.33333, -5.33333)
+emitting = false
+amount = 6
+texture = ExtResource("9_d3pcu")
+gravity = Vector2(0, 0)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_2tmmo")
+color_ramp = SubResource("Gradient_fd2v0")
+
+[node name="TurnTrail" type="CPUParticles2D" parent="TrackRight"]
+show_behind_parent = true
+position = Vector2(-3, -4)
+emitting = false
+amount = 10
+texture = ExtResource("9_d3pcu")
+emission_shape = 3
+emission_rect_extents = Vector2(8, 0)
+gravity = Vector2(0, 0)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_2tmmo")
+color_ramp = SubResource("Gradient_fd2v0")
+
+[node name="TankBase" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("10_8dijs")
+
+[node name="BarrelGun" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("11_ifxkf")
+
+[node name="Muzzle" type="Marker2D" parent="BarrelGun"]
+position = Vector2(12.6667, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-7.5, 0)
+shape = SubResource("RectangleShape2D_3xtrk")
+
+[node name="Reload" type="Timer" parent="."]

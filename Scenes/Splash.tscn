@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://k27832wmim2j"]
+[gd_scene load_steps=8 format=3 uid="uid://d2grw6m7rx4f2"]
 
-[ext_resource type="Script" path="res://Scenes/Splash.gd" id="1_7hlw2"]
+[ext_resource type="Script" path="res://Scripts/Splash.gd" id="1_hp762"]
 [ext_resource type="Texture2D" uid="uid://difxjlqbefboj" path="res://Art/Splash Screen/5th Little Fire Studio.png" id="1_xybky"]
 [ext_resource type="AudioStream" uid="uid://bv787n66pngkn" path="res://Music/Splash.wav" id="3_tfkco"]
 
@@ -20,21 +20,6 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_6jewt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Fade:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_74kg5"]
 resource_name = "Fade Out"
 length = 2.0
@@ -51,6 +36,21 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_6jewt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fade:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3gagp"]
 _data = {
 "Fade In": SubResource("Animation_ia6hh"),
@@ -59,7 +59,7 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_7hlw2")
+script = ExtResource("1_hp762")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
