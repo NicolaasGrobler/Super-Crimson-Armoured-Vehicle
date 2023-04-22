@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://bgld847wi5uj1"]
+
+[ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_kei4u"]
+[ext_resource type="Texture2D" uid="uid://bg8tv86e5rf8y" path="res://Art/Bullets/barrelMissle/barrelMissle1.png" id="2_c7ffx"]
+[ext_resource type="Texture2D" uid="uid://ocmguqj3axdk" path="res://Art/Explosion/Missle/MissleExplosion1.png" id="2_w2vcn"]
+[ext_resource type="Texture2D" uid="uid://c2gx4ea31kw23" path="res://Art/Explosion/Missle/MissleExplosion2.png" id="3_bpbdc"]
+[ext_resource type="Texture2D" uid="uid://buvjj4c5j0wxi" path="res://Art/Explosion/Missle/MissleExplosion3.png" id="4_rn0dl"]
+[ext_resource type="Texture2D" uid="uid://dukf2rqgkcamd" path="res://Art/Explosion/Missle/MissleExplosion4.png" id="5_t5yhj"]
+[ext_resource type="Texture2D" uid="uid://cl72yjqtebil1" path="res://Art/Explosion/Missle/MissleExplosion5.png" id="6_3tqxr"]
+[ext_resource type="Texture2D" uid="uid://du6lf2ik20y3t" path="res://Art/Explosion/Missle/MissleExplosion6.png" id="7_w5m7w"]
+[ext_resource type="Texture2D" uid="uid://bk4buwj75vkkq" path="res://Art/Explosion/Missle/MissleExplosion7.png" id="8_gdkau"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7she"]
+size = Vector2(16, 6)
+
+[sub_resource type="Curve" id="Curve_0bwuu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.992509, 0.481818), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_lv42d"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.615686)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aajx5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w2vcn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bpbdc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rn0dl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t5yhj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3tqxr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w5m7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_gdkau")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 15.0
+}]
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_kei4u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_c7ffx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a7she")
+
+[node name="Lifetime" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="FireParticles" type="CPUParticles2D" parent="."]
+z_index = -1
+emitting = false
+amount = 12
+lifetime = 3.0
+one_shot = true
+texture = ExtResource("2_w2vcn")
+emission_shape = 1
+emission_sphere_radius = 48.66
+gravity = Vector2(0, 0)
+angle_min = -360.0
+angle_max = 360.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_0bwuu")
+color_ramp = SubResource("Gradient_lv42d")
+
+[node name="Explosion" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_aajx5")
+animation = &"explosion"
+
+[node name="FireLifetime" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]
+[connection signal="animation_finished" from="Explosion" to="." method="_on_explosion_animation_finished"]
+[connection signal="timeout" from="FireLifetime" to="." method="_on_fire_lifetime_timeout"]

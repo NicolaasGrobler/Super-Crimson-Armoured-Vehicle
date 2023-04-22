@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://bxy72tkoi6ogx"]
+[gd_scene load_steps=17 format=3 uid="uid://bxy72tkoi6ogx"]
 
-[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_hd0r6"]
+[ext_resource type="Script" path="res://Scripts/Tank.gd" id="1_btww6"]
+[ext_resource type="PackedScene" uid="uid://bqg7j58ec1ihe" path="res://Prefabs/PlayerBullet.tscn" id="2_j63jk"]
 [ext_resource type="Texture2D" uid="uid://ca1h7ypqmf4jd" path="res://Art/Tanks/Track1.png" id="2_v3jh4"]
 [ext_resource type="Texture2D" uid="uid://bd2hclr5y7qsf" path="res://Art/Tanks/Track2.png" id="3_xvivr"]
 [ext_resource type="Texture2D" uid="uid://2gm35ew8ga4a" path="res://Art/Tanks/Track3.png" id="4_i3r10"]
@@ -54,7 +55,8 @@ size = Vector2(55, 42)
 
 [node name="Tank" type="CharacterBody2D"]
 show_behind_parent = true
-script = ExtResource("1_hd0r6")
+script = ExtResource("1_btww6")
+Bullet = ExtResource("2_j63jk")
 
 [node name="TrackLeft" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
@@ -149,8 +151,9 @@ texture = ExtResource("11_ifxkf")
 position = Vector2(12.6667, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-7.5, 0)
 shape = SubResource("RectangleShape2D_3xtrk")
 
 [node name="Reload" type="Timer" parent="."]
+
+[connection signal="timeout" from="Reload" to="." method="_on_reload_timeout"]

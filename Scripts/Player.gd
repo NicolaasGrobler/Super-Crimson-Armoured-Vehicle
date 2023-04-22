@@ -53,10 +53,12 @@ func get_input(delta):
 		rotation_direction -= 1
 	# Drive Forward
 	if Input.is_action_pressed("forward"):
-		# position += transform.x * drive_speed * delta
 		velocity = Vector2(drive_speed, 0).rotated(rotation)
 	# Reverse
 	if Input.is_action_pressed("reverse"):
 		velocity = Vector2(-reverse_speed, 0).rotated(rotation)
+	# Shoot
+	if Input.is_action_pressed("shoot"):
+		shoot()
 		
 	rotation += (rotation_speed / 10) * rotation_direction * delta
